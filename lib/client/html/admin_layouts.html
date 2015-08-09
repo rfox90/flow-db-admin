@@ -1,16 +1,19 @@
-<template name="fAdminLayout">
+<template name="AdminLayout">
   {{#if AdminConfig}}
-  {{#if isInRole 'admin'}}
+  {{#if isInRole adminRole}}
     <div class="admin-layout">
-  			{{> AdminHeader}}
-  			{{> AdminSidebar }}
-				<div class="content-wrapper" style="min-height: {{minHeight}}">
-					<section class="content-header">
+  		{{> AdminHeader}}
+		<main id="main">
+			<!-- START WRAPPER -->
+			<div class="wrapper">
+				{{> AdminSidebar }}
+				<section id="content">
+					<div class="container">
+						<section class="content-header">
 						<h1>
 							{{$.Session.get 'admin_title'}}
 							<small>{{$.Session.get 'admin_subtitle'}}</small>
 						</h1>
-						<br>
 						<ol class="breadcrumb">
 							<li><a href="/admin/">Dashboard</a></li>
 							{{#if $.Session.get 'admin_collection_name'}}
@@ -19,18 +22,22 @@
 							{{#if $.Session.equals 'admin_collection_page' 'new'}}
 							<li>New</li>
 							{{/if}}
+
 							{{#if $.Session.equals 'admin_collection_page' 'edit'}}
 							<li>Edit</li>
 							{{/if}}
 						</ol>
 					</section>
 					<section class="content">
-						{{> Template.dynamic template=main}}
+						{{> yield }}
 					</section>
-				</div>
+					</div>
+				</section>
+			</div>
+		</main>
 	</div>
 	{{> AdminDeleteModal }}
-	{{else}}
+{{else}}
 	{{> NotAdmin}}
 	{{/if}}
 	{{else}}
@@ -39,7 +46,7 @@
 </template>
 
 <template name="AdminDeleteModal">
-	<div class="modal fade" id="admin-delete-modal">
+	<div id="admin-delete-modal" class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -59,19 +66,15 @@
 </template>
 
 <template name="NotAdmin">
-<div class="container">
 <div class="row">
-	<div class="col-md-4 col-md-offset-4">
+	<div class="col s4">
 		<p class="alert alert-info" style="margin-top:100px;">
 			You need to be an admin to view this page
 		</p>
 	</div>
 </div>
-</div>
 </template>
-<template name="AdminLoading">
-	<p> Loading....</p>
-</template>
+
 <template name="NoConfig">
 	<p class="alert alert-info">
 		You need to define an AdminConfig object to use the admin dashboard.

@@ -1,32 +1,31 @@
 <template name="adminDefaultWidgets">
+	<div class="row">
 	{{#each admin_collections}}
 		{{#unless $eq showWidget false}}
 			{{> adminCollectionWidget collection=name}}
 		{{/unless}}
 	{{/each}}
+	</div>
 </template>
 
 <template name="adminCollectionWidget">
-	<div class="{{#if class}}{{class}}{{else}}col-lg-3 col-xs-6{{/if}}">
-	{{#with adminGetCollection collection}}
-		<a href="{{adminViewPath this.name}}">
-			<div class="small-box bg-{{color}}">
-				<div class="inner">
-					<h3>
-						{{adminCollectionCount name}}
-					</h3>
-					<p>
-						{{this.label}}
-					</p>
+		{{#with adminGetCollection collection}}
+		<div class="{{#if class}}{{class}}{{else}}col s12 m6 l3{{/if}}">
+			<div class="card">
+				<div class="card-content  {{color}} white-text">
+							<p class="card-stats-title"><i class="mdi-social-group-add"></i>{{this.label}}</p>
+							<h4 class="card-stats-number">{{adminCollectionCount name}}</h4>
+					</div>
+					<div class="icon">
+						<i class="fa fa-{{this.icon}}"></i>
+					</div>
+				<div class="card-action {{color}} darken-2">
+					<a href="/admin/{{this.name}}" class="small-box-footer">
+						See all <i class="mdi-action-input"></i>
+					</a>
 				</div>
-				<div class="icon">
-					<i class="fa fa-{{this.icon}}"></i>
-				</div>
-				<a class="small-box-footer">
-					See all <i class="fa fa-arrow-circle-right"></i>
-				</a>
 			</div>
-		</a>
+		</div>
 		{{/with}}
-	</div>
 </template>
+

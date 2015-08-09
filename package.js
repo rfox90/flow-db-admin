@@ -1,10 +1,10 @@
 Package.describe({
-  name: 'sach:flow-db-admin',
+  name: 'ahref:flow-db-admin',
   version: '1.0.0',
   // Brief, one-line summary of the package.
-  summary: 'Meteor Database Admin package for use with Flow Router',
+  summary: 'Meteor Database Admin package for use with Flow Router, re-skinned for materialize',
   // URL to the Git repository containing the source code for this package.
-  git: 'https://github.com/sachinbhutani/flow-db-admin',
+  git: 'https://github.com/rfox90/flow-db-admin',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
@@ -26,13 +26,13 @@ Package.onUse(function(api) {
     'zimme:active-route@2.3.0',
     'reywood:publish-composite@1.3.6',
     'aldeed:collection2@2.3.3',
-    'aldeed:autoform@5.3.0',
+    'aldeed:autoform@5.3.2',
+    'gildaspk:autoform-materialize@0.0.21',
     'aldeed:template-extension@3.4.3',
     'alanning:roles@1.2.13',
     'raix:handlebar-helpers@0.2.4',
     'momentjs:moment@2.10.3',
-    'aldeed:tabular@1.2.0',
-    'mfactory:admin-lte@0.0.2'
+    'nicolaslopezj:tabular-materialize@1.2.1',
     ],
     both);
 

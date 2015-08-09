@@ -7,24 +7,21 @@
 </template>
 
 <template name="AdminDashboardNew">
-	{{> adminAlert}}	
+	{{> adminAlert}}
 	{{#if adminTemplate admin_collection_name 'new'}}
 		{{#with adminTemplate admin_collection_name 'new'}}
-		<p>start of dynamic temp</p>
 		{{> UI.dynamic template=name data=data }}
-		<p>end of dynamic temp</p>
 		{{/with}}
 	{{else}}
 		<div class="box box-default">
 			<div class="box-body">
-				{{> quickForm id="admin_insert" collection=admin_collection_name fields=admin_fields omitFields=admin_omit_fields buttonContent='Create'}}
+				{{> quickForm id="admin_insert" collection=admin_collection fields=admin_fields omitFields=admin_omit_fields buttonContent='Create'}}
 			</div>
 		</div>
 	{{/if}}
 </template>
 
 <template name="AdminDashboardEdit">
-	{{#if isSubReady}}
 	{{> adminAlert}}
 	{{#if adminTemplate admin_collection_name 'edit'}}
 		{{#with adminTemplate admin_collection_name 'edit'}}
@@ -33,16 +30,11 @@
 	{{else}}
 		<div class="box box-default">
 			<div class="box-body">
-				{{#if fadmin_doc}}
-				{{> quickForm id="admin_update" collection=admin_collection_name doc=fadmin_doc fields=admin_fields omitFields=admin_omit_fields buttonContent='Update' }}
-				{{else}}
-					can't find current doc
+				{{#if admin_current_doc}}
+				{{> quickForm id="admin_update" collection=admin_collection doc=admin_current_doc fields=admin_fields omitFields=admin_omit_fields buttonContent='Update'}}
 				{{/if}}
 			</div>
 		</div>
-	{{/if}}
-	{{else}}
-		<div class="box box-default"><div class="box-body">Loading...</div></div>	
 	{{/if}}
 </template>
 
@@ -52,24 +44,20 @@
 </template>
 
 <template name="AdminDashboardView">
-	{{#if isSubReady}}
 	{{> adminAlert}}
 	{{#if adminTemplate admin_collection_name 'view'}}
 		{{#with adminTemplate admin_collection_name 'view'}}
 		{{> UI.dynamic template=name data=data }}
 		{{/with}}
 	{{else}}
-		{{#if hasDocuments}}			
+		{{#if hasDocuments}}
 			{{> tabular table=admin_table class="table dataTable"}}
 		{{else}}
 			<div class="alert alert-info">
 				<p>There are no visible items in this collection.</p>
 				<p><a href="{{newPath}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add one</a></p>
 			</div>
-		{{/if}}	
-	{{/if}}
-	{{else}}
-		<div class="box box-default"><div class="box-body">Loading...</div></div>	
+		{{/if}}
 	{{/if}}
 </template>
 
@@ -160,7 +148,7 @@
 </template>
 
 <template name="adminUsersIsAdmin">
-	{{#if adminIsUserInRole this._id 'admin'}}<i class="fa fa-check"></i>{{/if}}
+	{{#if adminIsUserInRole this._id adminRole}}<i class="fa fa-check"></i>{{/if}}
 </template>
 
 <template name="adminUsersMailBtn">
@@ -168,11 +156,11 @@
 </template>
 
 <template name="adminEditBtn">
-	<a href="{{path}}" class="hidden-xs btn btn-xs btn-primary"><i class="fa fa-pencil"></i></a>
-	<a href="{{path}}" class="visible-xs btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+	<a href="{{path}}" class="hide-on-large-only btn"><i class="fa fa-pencil"></i></a>
+	<a href="{{path}}" class="hide-on-small-only btn"><i class="fa fa-pencil"></i> Edit</a>
 </template>
 
 <template name="adminDeleteBtn">
-	<a data-toggle="modal" doc="{{_id}}" href='#admin-delete-modal' class="hidden-xs btn btn-xs btn-danger btn-delete"><i class="fa fa-times" doc="{{_id}}"></i></a>
-	<a data-toggle="modal" doc="{{_id}}" href='#admin-delete-modal' class="visible-xs btn btn-sm btn-danger btn-delete"><i class="fa fa-times" doc="{{_id}}"></i> Delete</a>
+	<a data-toggle="modal" doc="{{_id}}" href='#admin-delete-modal' class="hide-on-large-only btn btn-xs btn-danger btn-delete"><i class="fa fa-times" doc="{{_id}}"></i></a>
+	<a data-toggle="modal" doc="{{_id}}" href='#admin-delete-modal' class="hide-on-small-only btn btn-sm btn-danger btn-delete"><i class="fa fa-times" doc="{{_id}}"></i> Delete</a>
 </template>
